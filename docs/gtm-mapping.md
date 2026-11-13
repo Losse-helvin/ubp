@@ -1,24 +1,37 @@
 # GTM — mapping par groupe, conteneur et `form_id`
 
-> Audit + correction du 2026-11-13 — branche `arena/14fbea32-ubp`.
-> Périmètre : 174 pages HTML du repo (dossiers `*/index.html` + fichiers `.html`).
+> Audit **et correction** du 2026-11-13 — branche `arena/61f8be71-ubp`.
+> Périmètre : 174 pages HTML du repo (`*/index.html`), réparties dans les 3 groupes de la liste de référence.
+> Les `form_id` de la colonne « observé à l'exécution » sont **relevés en exécutant réellement le JS de chaque page** (JSDOM, lecture du `dataLayer`), pas déduits du source.
 
 ## Ce qui a été corrigé
 
 | # | Correction | Pages |
 |---|---|---|
-| 1 | Convention GTM Google standardisée : commentaires exacts `<!-- Google Tag Manager -->` / `<!-- End Google Tag Manager -->`, snippet dans `<head>` avant `</head>`, `<noscript>` juste après `<body>` (hors `<div class="w-embed w-iframe">`) | 114 |
-| 2 | Suppression des `<noscript>` GTM en double (double comptage) : `courtier-energies-industries`, `energie`, `securite`, `securite-rcs`, `securite-telesurveillance`, `fuso/panneaux-photovoltaiques`, `remerciements-assurances-collectives` | 7 |
-| 3 | Retrait du conteneur `GTM-53SH7D7F` sur les 26 pages qui doivent être « sans GTM » (groupe 3) | 26 |
-| 4 | Réalignement du conteneur selon la liste de référence : 61 pages → `GTM-WMVZJKS`, 27 pages → `GTM-53SH7D7F` | 174 vérifiées |
+| 1 | Convention GTM Google standardisée : commentaires `<!-- Google Tag Manager -->` / `<!-- End Google Tag Manager -->`, snippet en fin de `<head>`, `<noscript>` juste après `<body>` (hors `<div class="w-embed w-iframe">`) | 114 |
+| 2 | Suppression des `<noscript>` GTM en double (risque de double comptage) : `courtier-energies-industries`, `energie`, `securite`, `securite-rcs`, `securite-telesurveillance`, `fuso/panneaux-photovoltaiques`, `remerciements-assurances-collectives` | 7 |
+| 3 | Retrait du conteneur `GTM-53SH7D7F` des pages devant être « sans GTM » (groupe 3) | 26 |
+| 4 | **Groupe 3 : suppression de tout le balisage Google restant** — `gtag.js G-3XPBT7BZ10`, bloc `Consent Mode V2` (`gtag('consent','default',…)`), `gtag('config',…)`, pushes `dataLayer` (`cookie_preferences_updated`, `formulaire_lead` legacy) et `gtag('consent','update')`. **Meta Pixel conservé.** | 81 pages HTML + 137 fichiers JS |
+| 5 | **`bar-business-canalplus`** : le champ « Raison sociale » s'appelait `name="nom"`, en doublon avec le champ « Nom » → la société partait **vide** dans le lead et dans le CRM. Renommé `name="societe"` (id `societe`). Vérifié : `societe` désormais transmis. | 1 |
 
-Les identifiants de conteneur `GTM-WMVZJKS` / `GTM-53SH7D7F` sont conservés à l'identique ; seul le balisage autour a été remis en conformité. Le `Consent Mode V2` (`gtag('consent','default',…)`) reste poussé **avant** `gtm.js` sur toutes les pages qui en disposent.
+Contrôles automatisés après correction :
 
-Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : **174/174 pages conformes** — 1 seul `gtm.js` poussé dans `dataLayer`, 1 seul script GTM injecté avec le bon `id`, 1 seul `<noscript>` avec le bon `id`, consentement avant GTM, aucune page du groupe 3 ne charge GTM.
+- **Structure GTM** (HTML, 174/174) : 1 seul `gtm.js`, 1 seul `<noscript>`, conteneur unique conforme au groupe, `Consent Mode` avant GTM, aucun conteneur GTM en groupe 3.
+- **Exécution** (JSDOM) : `gtm.js` poussé une seule fois par page en G1 et G2 ; **0** `dataLayer` créé sur les 86 pages du groupe 3 ; **0** erreur JS sur ces 86 pages.
+- **Formulaires** : `formulaire_lead` + `form_id` sur **60/61** pages du G1 (`typ-categories` et `typ-categories-hd` sont des pages d'iframe sans `<form>` : exemptées) et **27/27** du G2.
 
-## Groupe 1. GTM-WMVZJKS — 61 pages
+## Notes de lecture
 
-| # | Page | `form_id` | Source du `form_id` | ID du formulaire (DOM) |
+- **`form_id` transmis** : valeur réellement poussée dans `dataLayer` à la soumission (`event: "formulaire_lead"`, clé `form_id`).
+- **Identifiant du `<form>` (DOM)** : attribut `id` du `<form>` dans le HTML (ou `name` quand il n'y a pas d'`id`) — souvent un UUID Webflow. Il ne doit **pas** servir d'identifiant CRM : seul le `formId` du `lead-handler.js` fait foi quand il existe.
+- Les 11 pages du G1 **sans `lead-handler.js`** utilisent le handler inline de `script.js`, qui envoie `form.id || form.name || document.title` : leur `form_id` est donc l'`id` (ou à défaut le `name`) Webflow. **Ces identifiants restent à enregistrer côté CRM** (liste dédiée plus bas).
+- `—` : page sans formulaire de lead (remerciements, blog, 404, templates, pages iframe…).
+
+## Groupe 1. `GTM-WMVZJKS` — 61 pages
+
+Conteneur GTM présent et unique ; GA4 direct `G-3XPBT7BZ10` conservé (hors périmètre GTM).
+
+| # | Page | `form_id` transmis | Origine | Identifiant du `<form>` (DOM) |
 |---|---|---|---|---|
 | 1 | `assurance-tns-pro/index.html` | `a24732423448454o` | lead-handler.js | `wf-form-Tns-pr-voyance` |
 | 2 | `avantages-salaries/index.html` | `a62723309826377s` | lead-handler.js | `wf-form-Avantages-Salari-s` |
@@ -47,19 +60,19 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 25 | `energie-service/index.html` | `e38169290488741e` | lead-handler.js | `wf-form-energie-service-form` |
 | 26 | `energie-v2/index.html` | `wf-form-energie-form` | id DOM | `wf-form-energie-form` |
 | 27 | `exploitation-agricole/index.html` | `e57156379155146e` | lead-handler.js | `wf-form-energie-form` |
-| 28 | `fiat-pro/index.html` | `f97921226554480o` | lead-handler.js | `—` |
+| 28 | `fiat-pro/index.html` | `f97921226554480o` | lead-handler.js | `wf-form-Fiat-Pro-Form` |
 | 29 | `financez-les-repas-de-vos-salaries-en-etant-exonere-a-100/index.html` | `f61047575435331a` | lead-handler.js | `wf-form-TR_form-Mars_2025` |
-| 30 | `form-energie/index.html` | `f47282440914802e` | lead-handler.js | `—` |
+| 30 | `form-energie/index.html` | `f47282440914802e` | lead-handler.js | `wf-form-energie-form-janv-new` |
 | 31 | `fuso/kiwatch/index.html` | `k37606740724627h` | lead-handler.js | `wf-form-kiwatch-form` |
 | 32 | `fuso/methanisation-agricole/index.html` | `m29852009925210e` | lead-handler.js | `wf-form-Grdf` |
 | 33 | `fuso/nettoyage-locaux-professionnels/index.html` | `n36788069989202s` | lead-handler.js | `email-form` |
 | 34 | `fuso/nordpass-business/index.html` | `n34885746245527s` | lead-handler.js | `wf-form-NordPass-business-Form-2` |
-| 35 | `fuso/panneaux-photovoltaiques-passez-a-l-energie-solaire/index.html` | `p21535040168169e` | lead-handler.js | `—` |
-| 36 | `fuso/panneaux-photovoltaiques-passez-a-lenergie-solaire-v2/index.html` | `p98359722802562v` | lead-handler.js | `—` |
+| 35 | `fuso/panneaux-photovoltaiques-passez-a-l-energie-solaire/index.html` | `p21535040168169e` | lead-handler.js | `wf-form-panneaux-passer-a-l-energie` |
+| 36 | `fuso/panneaux-photovoltaiques-passez-a-lenergie-solaire-v2/index.html` | `p98359722802562v` | lead-handler.js | `wf-form-panneaux-passer-a-l-energie` |
 | 37 | `fuso/recrutement/index.html` | `r22636563896239t` | lead-handler.js | `wf-form-Recrutement-form` |
 | 38 | `recrutement-industrie-btp-hotellerie-restauration/index.html` | `r15164250983242n` | lead-handler.js | `wf-form-Recrutement-btp-industrie-form` |
 | 39 | `remerciements-cartes-cadeaux/index.html` | `r17973121525840x` | lead-handler.js | `wf-form-carte_cadeau_formulaire_typ` |
-| 40 | `remerciements-geolocalisation/index.html` | `r81170925649143n` | lead-handler.js | `—` |
+| 40 | `remerciements-geolocalisation/index.html` | `r81170925649143n` | lead-handler.js | `wf-form-typ-G-olocalisation-de-flotte-ubepro-janv` |
 | 41 | `remerciements-panneaux-solaire-2/index.html` | `r77178725455583e` | lead-handler.js | `wf-form-solaire-form-typ` |
 | 42 | `remerciements-panneaux-solaires/index.html` | `r26771867448929s` | lead-handler.js | `wf-form-solaire-form-typ` |
 | 43 | `remerciements-ticket-restaurant/index.html` | `r15064704681587t` | lead-handler.js | `wf-form-titre-restaurant_form_typ` |
@@ -68,7 +81,7 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 46 | `securite-telephone/index.html` | `s37742789514085e` | lead-handler.js | `wf-form-securite-ubepro-form` |
 | 47 | `securite-v2/index.html` | `s57964631774614v` | lead-handler.js | `wf-form-securite-ubepro-form` |
 | 48 | `smart-electricite/index.html` | `s34253611620262e` | lead-handler.js | `wf-form-Smart-electricite-form` |
-| 49 | `sms-fiat-pro/index.html` | `document.title` | — | `—` |
+| 49 | `sms-fiat-pro/index.html` | `wf-form-Fiat-Pro-Form` | name DOM | `wf-form-Fiat-Pro-Form` |
 | 50 | `still-manutention/index.html` | `s68092043088940n` | lead-handler.js | `wf-form-Still-Manutention-Form` |
 | 51 | `still-manutention-v2/index.html` | `wf-form-Still-Manutention-sms` | id DOM | `wf-form-Still-Manutention-sms` |
 | 52 | `still-manutention-v4/index.html` | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` | id DOM | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` |
@@ -82,9 +95,11 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 60 | `vehicules-utilitaires/index.html` | `v78585910487629s` | lead-handler.js | `wf-form-v-hicules-utilitaires-form-ubepro` |
 | 61 | `vehicules-utilitaires-v2/index.html` | `wf-form-v-hicules-utilitaires-form-ubepro` | id DOM | `wf-form-v-hicules-utilitaires-form-ubepro` |
 
-## Groupe 2. GTM-53SH7D7F — 27 pages
+## Groupe 2. `GTM-53SH7D7F` — 27 pages
 
-| # | Page | `form_id` | Source du `form_id` | ID du formulaire (DOM) |
+Conteneur GTM présent et unique.
+
+| # | Page | `form_id` transmis | Origine | Identifiant du `<form>` (DOM) |
 |---|---|---|---|---|
 | 1 | `actiflip-rayonnage/index.html` | `a26284124165053e` | lead-handler.js | `wf-form-actiflip-formly` |
 | 2 | `citroen/index.html` | `c26611810218480n` | lead-handler.js | `email-form` |
@@ -112,24 +127,26 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 24 | `solutions-agv/index.html` | `s90121568882660v` | lead-handler.js | `email-form` |
 | 25 | `solutions-agv-amr/index.html` | `s59878679548441r` | lead-handler.js | `wf-form-Email-Form-AGV` |
 | 26 | `solutions-agv-amr-v2/index.html` | `s39978766862812v` | lead-handler.js | `email-form` |
-| 27 | `telesurveillance/index.html` | `t48295113109172e` | lead-handler.js | `—` |
+| 27 | `telesurveillance/index.html` | `t48295113109172e` | lead-handler.js | `wf-form-Securite_Form-2` |
 
 ## Groupe 3. Sans GTM — 86 pages
 
-| # | Page | `form_id` | Source du `form_id` | ID du formulaire (DOM) |
+Aucun conteneur GTM, **et plus aucun balisage Google** (gtag/GA4, Consent Mode, `dataLayer`) après la correction n°4. Le Meta Pixel reste en place là où il était.
+
+| # | Page | `form_id` transmis | Origine | Identifiant du `<form>` (DOM) |
 |---|---|---|---|---|
 | 1 | `401/index.html` | `email-form` | id DOM | `email-form` |
 | 2 | `404/index.html` | `—` | — | `—` |
 | 3 | `about-us/index.html` | `email-form` | id DOM | `email-form` |
 | 4 | `assurances-professionnelles/index.html` | `a81400294243322s` | lead-handler.js | `wf-form-Assurance-Form` |
 | 5 | `audi-typ/index.html` | `—` | — | `—` |
-| 6 | `blog/index.html` | `document.title` | — | `—` |
-| 7 | `checkout/index.html` | `document.title` | — | `—` |
+| 6 | `blog/index.html` | `—` | — | `—` |
+| 7 | `checkout/index.html` | `—` | — | `—` |
 | 8 | `compara/index.html` | `—` | — | `—` |
-| 9 | `contact-us/index.html` | `document.title` | — | `—` |
-| 10 | `detail_blog-posts/index.html` | `document.title` | — | `—` |
-| 11 | `detail_category/index.html` | `document.title` | — | `—` |
-| 12 | `detail_posts-categories/index.html` | `document.title` | — | `—` |
+| 9 | `contact-us/index.html` | `—` | — | `—` |
+| 10 | `detail_blog-posts/index.html` | `—` | — | `—` |
+| 11 | `detail_category/index.html` | `—` | — | `—` |
+| 12 | `detail_posts-categories/index.html` | `—` | — | `—` |
 | 13 | `detail_product/index.html` | `—` | — | `—` |
 | 14 | `detail_sku/index.html` | `—` | — | `—` |
 | 15 | `devispro-solaire/index.html` | `d34004765687650e` | lead-handler.js | `email-form` |
@@ -138,7 +155,7 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 18 | `ds-automobiles-v2/index.html` | `wf-form-Ds-Automobiles-Form` | id DOM | `wf-form-Ds-Automobiles-Form` |
 | 19 | `ds-business-days/index.html` | `d44042674135116s` | lead-handler.js | `wf-form-DS-Automobiles-business` |
 | 20 | `edenred-kadeos/index.html` | `e90896560446402s` | lead-handler.js | `wf-form-ticket-kadeos-septembre-form-ubepro` |
-| 21 | `faq/index.html` | `document.title` | — | `—` |
+| 21 | `faq/index.html` | `—` | — | `—` |
 | 22 | `fiat-politique-de-confidentialite/index.html` | `—` | — | `—` |
 | 23 | `form-securite/index.html` | `f37328246714414e` | lead-handler.js | `form_securite` |
 | 24 | `formulaire/index.html` | `email-form` | id DOM | `email-form` |
@@ -155,7 +172,7 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 35 | `formulaires-typ/formulaire-energie/index.html` | `f96666432081076e` | lead-handler.js | `wf-form-energie-form` |
 | 36 | `formulaires-typ/formulaire-leads/index.html` | `f58579263439088s` | lead-handler.js | `email-form` |
 | 37 | `formulaires-typ/formulaire-manutention/index.html` | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` | id DOM | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` |
-| 38 | `formulaires-typ/formulaire-panneaux/index.html` | `f85378296874920x` | lead-handler.js | `—` |
+| 38 | `formulaires-typ/formulaire-panneaux/index.html` | `f85378296874920x` | lead-handler.js | `wf-form-panneaux-passer-a-l-energie` |
 | 39 | `formulaires-typ/formulaire-rayonnage/index.html` | `wf-form-Actiflip-TRA-UbePro` | id DOM | `wf-form-Actiflip-TRA-UbePro` |
 | 40 | `formulaires-typ/formulaire-sage/index.html` | `wf-form-Sage-Form-TRA` | id DOM | `wf-form-Sage-Form-TRA` |
 | 41 | `formulaires-typ/formulaire-securite/index.html` | `f19412491167982e` | lead-handler.js | `wf-form-securite-ubepro-form` |
@@ -165,36 +182,36 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 45 | `fuso/gamme-de-rayonnage-actiflip-hd/index.html` | `g78706384677425d` | lead-handler.js | `wf-form-actiflip-formly` |
 | 46 | `fuso/gamme-de-rayonnage-actiflip-v4/index.html` | `wf-form-Actiflip-TRA-UbePro` | id DOM | `wf-form-Actiflip-TRA-UbePro` |
 | 47 | `fuso/hellolead-test/index.html` | `—` | — | `—` |
-| 48 | `fuso/home-2/index.html` | `email-form` | id DOM | `email-form` |
-| 49 | `fuso/home-3/index.html` | `email-form` | id DOM | `email-form` |
+| 48 | `fuso/home-2/index.html` | `—` | — | `—` |
+| 49 | `fuso/home-3/index.html` | `—` | — | `—` |
 | 50 | `fuso/lp-fiat-pro-rentree-fiat-professional/index.html` | `—` | — | `—` |
 | 51 | `fuso/mentions-legales/index.html` | `—` | — | `—` |
 | 52 | `fuso/mitsubishi-motors-v2/index.html` | `email-form` | id DOM | `email-form` |
 | 53 | `fuso/nouvelle-experience-business-canalplus/index.html` | `email-form` | id DOM | `email-form` |
-| 54 | `fuso/old-home/index.html` | `document.title` | — | `—` |
-| 55 | `fuso/order-confirmation/index.html` | `document.title` | — | `—` |
+| 54 | `fuso/old-home/index.html` | `—` | — | `—` |
+| 55 | `fuso/order-confirmation/index.html` | `—` | — | `—` |
 | 56 | `fuso/our-team/index.html` | `email-form` | id DOM | `email-form` |
-| 57 | `fuso/paypal-checkout/index.html` | `document.title` | — | `—` |
+| 57 | `fuso/paypal-checkout/index.html` | `—` | — | `—` |
 | 58 | `fuso/photovoltaique-auvergne-rhone-alpes/index.html` | `wf-form-monabee-form` | id DOM | `wf-form-monabee-form` |
 | 59 | `fuso/politique-de-confidentialite-donnees-personnelles/index.html` | `—` | — | `—` |
 | 60 | `renault-trucks/index.html` | `r19075460881050s` | lead-handler.js | `email-form` |
 | 61 | `renault-trucks-v2/index.html` | `email-form` | id DOM | `email-form` |
 | 62 | `rothelec/index.html` | `r97758357557143c` | lead-handler.js | `wf-form-Rothelec_form` |
 | 63 | `sage-gestion-de-la-paie-v4/index.html` | `wf-form-Sage-Form-TRA` | id DOM | `wf-form-Sage-Form-TRA` |
-| 64 | `search/index.html` | `document.title` | — | `—` |
+| 64 | `search/index.html` | `—` | — | `—` |
 | 65 | `securite-devis/index.html` | `s50234510689579s` | lead-handler.js | `wf-form-securite-janv-form` |
-| 66 | `services/index.html` | `document.title` | — | `—` |
-| 67 | `shop/index.html` | `document.title` | — | `—` |
+| 66 | `services/index.html` | `—` | — | `—` |
+| 67 | `shop/index.html` | `—` | — | `—` |
 | 68 | `solutions-industrielles-cles/index.html` | `—` | — | `—` |
 | 69 | `template-mailjet/still/index.html` | `—` | — | `—` |
-| 70 | `templates/changelog/index.html` | `document.title` | — | `—` |
-| 71 | `templates/licensing/index.html` | `document.title` | — | `—` |
-| 72 | `templates/style-guide/index.html` | `document.title` | — | `—` |
+| 70 | `templates/changelog/index.html` | `—` | — | `—` |
+| 71 | `templates/licensing/index.html` | `—` | — | `—` |
+| 72 | `templates/style-guide/index.html` | `—` | — | `—` |
 | 73 | `test/index.html` | `email-form` | id DOM | `email-form` |
 | 74 | `test/form-assurance/index.html` | `f77995097331414e` | lead-handler.js | `wf-form-A-iard-666c16a1cf8ee5882cbb53f0` |
 | 75 | `test/form-panneaux/index.html` | `f96093882612905x` | lead-handler.js | `wf-form-Panneaux-photovolta-ques` |
 | 76 | `test/formulaire/index.html` | `f80334454966322e` | lead-handler.js | `wf-form-securite-janv-form` |
-| 77 | `testimonials/index.html` | `document.title` | — | `—` |
+| 77 | `testimonials/index.html` | `—` | — | `—` |
 | 78 | `thank-you/index.html` | `—` | — | `—` |
 | 79 | `ticket-restaurant-v2/index.html` | `wf-form-edenred_formulaire_ticket` | id DOM | `wf-form-edenred_formulaire_ticket` |
 | 80 | `tous-les-vehicules-a-portee-de-clic/index.html` | `—` | — | `—` |
@@ -205,46 +222,29 @@ Vérifications automatisées (JSDOM, exécution réelle du JS de chaque page) : 
 | 85 | `vehicules-de-societe/index.html` | `a13749586307084i` | lead-handler.js | `wf-form-voiture-professionnel-form-ubepro` |
 | 86 | `verisure/index.html` | `—` | — | `—` |
 
-**Total : 174 pages.**
+### `form_id` à enregistrer côté CRM (pages sans `lead-handler.js`)
 
-### Points d'attention restants (non bloquants pour GTM)
+| Groupe | Page | `form_id` transmis aujourd'hui |
+|---|---|---|
+| 1 | `business-password-manager/index.html` | `wf-form-NordPass_Form` |
+| 1 | `comparer-caisse-enregistreuse-commerce-2025-v2/index.html` | `wf-form-Caisse-Form` |
+| 1 | `ds-automobiles-gamme-pallas-business/index.html` | `wf-form-DS-Pallas-Form` |
+| 1 | `energie-v2/index.html` | `wf-form-energie-form` |
+| 1 | `securite-pro-v4/index.html` | `wf-form-Securite_Form_TRA` |
+| 1 | `sms-fiat-pro/index.html` | `wf-form-Fiat-Pro-Form` |
+| 1 | `still-manutention-v2/index.html` | `wf-form-Still-Manutention-sms` |
+| 1 | `still-manutention-v4/index.html` | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` |
+| 1 | `vehicules-utilitaires-v2/index.html` | `wf-form-v-hicules-utilitaires-form-ubepro` |
+| 2 | `erp-diagnostic/index.html` | `email-form` |
+| 2 | `fuso/lexus-lbx/index.html` | `email-form` |
+| 2 | `securite-rcs/index.html` | `wf-form-securite-ubepro-form` |
+| 2 | `securite-telesurveillance/index.html` | `wf-form-securite-ubepro-form` |
 
-- **`typ-categories` / `typ-categories-hd`** : ces 2 pages ne contiennent pas de formulaire en propre ; elles hébergent des `<iframe>` vers `formulaires-typ/*` (groupe 3, donc sans GTM). Le `form_id` est porté par la page du formulaire, pas par la page hôte.
-- **`<noscript>` GTM** : techniquement, un `<noscript>` n'est interprété par le navigateur que si JavaScript est désactivé ; son contenu est ensuite parsé comme du HTML. Le placer juste après `<body>` (hors `<div class="w-embed w-iframe">`) est la convention Google et c'est désormais le cas partout.
-- **Événement `formulaire_lead`** : sur les pages qui ont à la fois `lead-handler.js` et l'ancien handler `$('.form-ass').submit()` de `script.js`, le handler moderne intercepte l'événement en phase de capture (`stopImmediatePropagation()`), donc l'ancien push sans `form_id` ne part pas. Vérifié à l'exécution (JSDOM) : un seul `formulaire_lead` par soumission. Aucun `script.js` n'a été modifié.
-- **`GTM-53SH7D7F` retiré du groupe 3** : ces 26 pages ne chargeront plus de conteneur GTM. Si l'un de ces conteneurs portait des balises encore utiles (ex. tags pub sur `test/`), il faudra les déplacer dans le conteneur du groupe concerné.
-
-### Notes de lecture
-
-- `form_id` = valeur envoyée au CRM HelloLead (`payload.formId`) et poussée dans `dataLayer` lors de l'événement `formulaire_lead`.
-- `Source = lead-handler.js` : identifiant officiel, défini dans la config du handler de leads.
-- `Source = id DOM` : la page n'a **pas** de `lead-handler.js` ; le `form_id` transmis est l'`id` du `<form>` (ou `UBEPRO_FORM` à défaut). **Ces identifiants sont à enregistrer côté CRM** — voir la liste ci-dessous.
-- `—` : page sans formulaire de lead (remerciements, blog, 404, templates, mentions légales…).
-
-### `form_id` à faire confirmer côté CRM (aucun `lead-handler.js`)
-
-| Page | `form_id` transmis aujourd'hui |
-|---|---|
-| `business-password-manager/index.html` | `wf-form-NordPass_Form` |
-| `comparer-caisse-enregistreuse-commerce-2025-v2/index.html` | `wf-form-Caisse-Form` |
-| `ds-automobiles-gamme-pallas-business/index.html` | `wf-form-DS-Pallas-Form` |
-| `energie-v2/index.html` | `wf-form-energie-form` |
-| `securite-pro-v4/index.html` | `wf-form-Securite_Form_TRA` |
-| `still-manutention-v2/index.html` | `wf-form-Still-Manutention-sms` |
-| `still-manutention-v4/index.html` | `wf-form-Still-Manutention-673303a4c4a630813484e1d1` |
-| `vehicules-utilitaires-v2/index.html` | `wf-form-v-hicules-utilitaires-form-ubepro` |
-| `erp-diagnostic/index.html` | `email-form` |
-| `fuso/lexus-lbx/index.html` | `email-form` |
-| `securite-rcs/index.html` | `wf-form-securite-ubepro-form` |
-| `securite-telesurveillance/index.html` | `wf-form-securite-ubepro-form` |
-
-### Pages présentes dans le repo mais absentes de la liste de référence
+### Hors listes de référence
 
 | Page | Conteneur actuel | Remarque |
 |---|---|---|
-| `accueil/index.html` | aucun | uniquement GA4 `G-3XPBT7BZ10` |
-| `agv_amr/index.html` | `GTM-53SH7D7F` | laissée inchangée (non listée) |
+| `accueil/index.html` | aucun | uniquement GA4 `G-3XPBT7BZ10` (page non listée, laissée inchangée) |
+| `agv_amr/index.html` | `GTM-53SH7D7F` | page non listée, laissée inchangée |
 | `template-email-agv-amr/index.html` | aucun | template email |
-| `test/form-assurance.html` | aucun | fichier HTML racine, non listé (le dossier `test/form-assurance/` est en groupe 3) |
-| `test/form-panneaux.html` | aucun | idem |
-| `test/formulaire.html` | aucun | idem |
+| `test/form-assurance.html`, `test/form-panneaux.html`, `test/formulaire.html` | aucun | fichiers HTML racine (les dossiers `test/form-*/` sont en groupe 3) |
