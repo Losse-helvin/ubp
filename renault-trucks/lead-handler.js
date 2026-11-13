@@ -680,42 +680,6 @@ var UBE_CONFIG = {
     }).finally(function () { if (timer) window.clearTimeout(timer); });
   }
 
-  /* ================= GTM ================= */
-  function pushLeadEvents(data) {
-    window.dataLayer = window.dataLayer || [];
-    var micro = estMicro(data);
-    var eventData = {
-      event: micro ? 'formulaire_micro_entrepreneur' : 'formulaire_lead',
-      form_id: CONFIG.formId,
-      form_name: CONFIG.formName,
-      lead_type: micro ? 'micro_entrepreneur' : 'standard',
-      telephone_verifie: data.telephone_verifie === 'oui'
-    };
-    if (analyticsGranted()) {
-      if (parentLandingUrlReceived) eventData.page_url = clean(trackedPageUrl || entryUrl, 1000);
-      eventData.categorie = clean(data.categorie || '', 200);
-      eventData.lead_source = clean(data.source || '', 200);
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id',
-        'utm_category', 'utm_user', 'ltm_source', 'ltm_category', 'ltm_typ', 'ltm_user'].forEach(function (key) {
-        if (data[key]) eventData[key] = data[key];
-      });
-    }
-    if (marketingGranted()) {
-      CLICK_IDS.forEach(function (key) {
-        if (data[key]) eventData[key] = data[key];
-      });
-      eventData.user_data = {
-        email: data.mail || '',
-        phone_number: versE164(data.telephone || ''),
-        address: {
-          first_name: data.prenom || '', last_name: data.nom || '',
-          postal_code: data.code_postal || '', country: 'FR'
-        }
-      };
-    }
-    window.dataLayer.push(eventData);
-  }
-
   /* ================= Soumission ================= */
   var msg = null;
   if (phone) {
@@ -814,7 +778,6 @@ var UBE_CONFIG = {
     var recapField = form.querySelector('[name="autre_info_fj"]');
     if (recapField) recapField.value = data.autre_info_fj;
     debugLog('Payload CRM/Sheets pr\u00e9par\u00e9.', { formId: CONFIG.formId, categorie: data.categorie });
-    pushLeadEvents(data);
     sauvegarderEtRediriger(data);
 
     var crmDelivery = sendCrm(data).then(function (result) {
