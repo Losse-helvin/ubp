@@ -1,0 +1,36 @@
+# Ubepro — Automatisation intralogistique : AGV & AMR
+
+> Ubepro conçoit et intègre des solutions AGV (Automated Guided Vehicle) et AMR
+> (Autonomous Mobile Robot) pour automatiser le transport de palettes, de bacs et
+> de charges dans les sites industriels, les entrepôts logistiques et les
+> plateformes e-commerce. Prestations : diagnostic du site, étude, intégration,
+> installation, mise en service, connexion aux systèmes WMS / ERP / MES.
+> Périmètre : France. Premier échange sans engagement.
+
+## Page de référence
+- [AGV & AMR — automatisation des flux intralogistiques](https://www.ubepro.fr/agv-amr/):
+  diagnostic des flux, choix entre AGV et AMR, méthode en 3 étapes (comprendre,
+  proposer, installer), questions fréquentes, demande d'étude.
+
+## Réponses courtes (faits vérifiables)
+- **AGV** : véhicule à guidage automatique suivant un itinéraire prédéfini (fil,
+  bande ou repères au sol). Adapté aux trajets fixes, répétitifs et aux charges
+  lourdes, avec supervision centralisée.
+- **AMR** : robot mobile autonome qui cartographie son environnement et recalcule
+  sa trajectoire en temps réel. Adapté aux environnements variables, avec une
+  infrastructure minimale et un déploiement progressif.
+- **Critères de choix** : nature et poids des charges, longueur et variabilité des
+  parcours, cadence, présence d'obstacles ou de personnes, systèmes de gestion
+  existants.
+- **Intégration** : les solutions sont interfacées avec les WMS, ERP, MES et
+  systèmes de production du site.
+- **Méthode Ubepro** : comprendre (audit des trajets, charges, difficultés) ;
+  proposer (solution argumentée) ; installer (mise en service, formation,
+  accompagnement au démarrage).
+
+## Entité
+- Marque : Ubepro (marque de Hellodevis SAS)
+- Siège : 5 avenue de la République, 75011 Paris, France
+- Téléphone : 07 56 98 60 82 — Email : contact@ubepro.fr
+- Identifiant : RCS Paris B 798 043 634
+- Langue du site : français

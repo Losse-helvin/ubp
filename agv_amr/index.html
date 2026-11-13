@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<!-- Capture de l'URL d'entrée AVANT tout nettoyage éventuel (lu par script.js). -->
+<script>window.__UBEPRO_ENTRY_URL__=location.href;</script>
+<!-- Google Consent Mode v2 : actif dès le chargement (avant, sans ou avec consentement) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+  (function () {
+    var preferences = { essential: true, analytics: true, marketing: true };
+    var prefix = 'user_cookie_preferences=';
+    try {
+      var entry = document.cookie.split(';').map(function (part) { return part.trim(); })
+        .find(function (part) { return part.indexOf(prefix) === 0; });
+      if (entry) {
+        var stored = JSON.parse(decodeURIComponent(entry.slice(prefix.length)));
+        if (stored && typeof stored === 'object' && !Array.isArray(stored)) {
+          preferences.analytics = stored.analytics === true;
+          preferences.marketing = stored.marketing === true;
+        }
+      }
+    } catch (_) {
+      // Préférences actives par défaut avant consentement.
+    }
+    window.__UBEPRO_COOKIE_PREFERENCES__ = preferences;
+
+    var googleConsent = {
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'granted',
+      security_storage: 'granted'
+    };
+    window.gtag('consent', 'default', googleConsent);
+  })();
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53SH7D7F');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AGV &amp; AMR : automatisez vos flux intralogistiques | Ubepro</title>
+<meta name="description" content="Ubepro conçoit et intègre des solutions AGV et AMR adaptées à vos flux industriels : diagnostic, étude, installation et mise en service. Demandez votre étude en remplissant le formulaire en haut de page, sans engagement.">
+<link rel="canonical" href="https://www.ubepro.fr/agv-amr/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="Ubepro">
+<meta name="theme-color" content="#111827">
+<meta name="geo.region" content="FR">
+<meta name="geo.placename" content="Paris">
+<meta name="format-detection" content="telephone=no">
+<link rel="alternate" hreflang="fr" href="https://www.ubepro.fr/agv-amr/">
+<link rel="alternate" hreflang="x-default" href="https://www.ubepro.fr/agv-amr/">
+
+<!-- Open Graph / réseaux sociaux -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ubepro">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="AGV &amp; AMR : automatisez vos flux intralogistiques | Ubepro">
+<meta property="og:description" content="Solutions AGV et AMR pour le transport de palettes, bacs et charges : diagnostic, étude, installation, mise en service.">
+<meta property="og:url" content="https://www.ubepro.fr/agv-amr/">
+<meta property="og:image" content="https://www.ubepro.fr/agv-amr/assets/og-ubepro-agv-amr.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Robot mobile autonome transportant une charge en environnement industriel — Ubepro">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AGV &amp; AMR : automatisez vos flux intralogistiques | Ubepro">
+<meta name="twitter:description" content="Solutions AGV et AMR pour le transport de palettes, bacs et charges : diagnostic, étude, installation, mise en service.">
+<meta name="twitter:image" content="https://www.ubepro.fr/agv-amr/assets/og-ubepro-agv-amr.jpg">
+
+<!-- Icônes -->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<!-- Polices auto-hébergées : 3 fichiers woff2 -->
+<link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+
+<!--
+  Configuration optionnelle (à placer AVANT script.js) :
+  <script>
+    window.UBEPRO_CONFIG = {
+      leadApiUrl: 'https://mon-crm.exemple/get_information.php',
+      leadApiMode: 'nocors',        // nocors | cors | off
+      leadApiCredentials: 'omit',   // omit | include
+      formId: 'a17629575110428r',
+      crmStrictContract: false,     // true = uniquement les clés du contrat CRM
+      debug: false
+    };
+  </script>
+-->
+
+<!-- Cache-busting : la valeur BUILD est réécrite par build.sh -->
+<!-- CRITICAL:START -->
+<style>@font-face{font-family:DM Sans;src:url(assets/fonts/dm-sans.woff2)format("woff2");font-weight:400 700;font-style:normal;font-display:swap}@font-face{font-family:Barlow Condensed;src:url(assets/fonts/barlow-condensed-700.woff2)format("woff2");font-weight:700;font-style:normal;font-display:swap}[hidden]{display:none!important}:root{--ink:#111827;--ink-soft:#263244;--paper:#f4f1ea;--white:#fffdf8;--blue:#1c56d9;--blue-deep:#102c68;--blue-night:#091634;--blue-light:#7ea2ff;--ice:#cbd4e9;--orange:#f26b35;--line:#d7d4ca;--line-dark:#3a455b;--muted:#68717e;--radius:2px;--display:"Barlow Condensed",Impact,sans-serif;--body:"DM Sans",Arial,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;margin:0;font-size:16px;line-height:1.5}img{max-width:100%;height:auto}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.sr-only{clip:rect(0 0 0 0);white-space:nowrap;border:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.skip-link{background:var(--blue);color:#fff;z-index:20;padding:10px 14px;position:absolute;top:-50px;left:16px}.skip-link:focus{top:16px}.site-header{border-bottom:1px solid var(--line);z-index:10;background:#f4f1eaeb;justify-content:space-between;align-items:center;height:76px;padding:0 clamp(22px,5vw,80px);display:flex;position:relative}.brand{letter-spacing:-1px;align-items:center;gap:8px;font-size:21px;font-weight:700;display:flex}.brand-mark{background:var(--blue);color:#fff;width:27px;height:27px;font-family:var(--display);letter-spacing:0;place-items:center;font-size:21px;display:grid}.main-nav{color:var(--muted);gap:34px;font-size:13px;display:flex}.header-cta,.button{border-radius:var(--radius);border:0;justify-content:center;align-items:center;gap:14px;font-size:13px;font-weight:700;line-height:1;display:inline-flex}.header-cta{color:var(--blue)}.header-cta span,.button span,.arrow-link span{font-size:18px}.menu-toggle,.mobile-nav{display:none}.hero{background:var(--blue-deep);min-height:calc(100vh - 76px);align-items:center;min-height:calc(100svh - 76px);display:flex;position:relative;overflow:hidden}.hero-bg{z-index:0;object-fit:cover;object-position:center 35%;mix-blend-mode:screen;opacity:.42;pointer-events:none;width:100%;height:100%;position:absolute;inset:0}.hero:before{content:"";z-index:1;pointer-events:none;background:linear-gradient(115deg,#091634f2 0%,#102c68e0 42%,#102c6894 100%);position:absolute;inset:0}.hero-inner{z-index:2;grid-template-columns:minmax(0,1.02fr) minmax(330px,.8fr);grid-template-areas:"copy form""foot form";align-content:center;align-items:center;gap:clamp(22px,3vw,54px);width:100%;max-width:1440px;margin:0 auto;padding:clamp(26px,3.6vw,58px) clamp(22px,5vw,90px);display:grid;position:relative}.hero-copy{grid-area:copy}.hero-form{grid-area:form}.hero-foot{grid-area:foot;align-self:start}.eyebrow{letter-spacing:1.8px;text-transform:uppercase;color:var(--blue);margin:0 0 22px;font-size:11px;font-weight:700}.eyebrow-dot{background:var(--orange);border-radius:50%;width:8px;height:8px;margin-right:8px;display:inline-block}.hero .eyebrow{color:#a8b8d6;margin-bottom:18px}.hero h1{font-family:var(--display);color:#fff;letter-spacing:-.5px;text-transform:uppercase;max-width:720px;margin:0;font-size:clamp(36px,4.4vw,64px);line-height:.9}.hero h1 em{color:var(--orange);font-style:normal}.hero-lead{color:var(--ice);max-width:540px;margin:22px 0 0;font-size:18px;line-height:1.5}.hero-points{color:var(--ice);gap:8px;margin:0 0 14px;padding:0;font-size:13px;list-style:none;display:grid}.hero-points li{gap:9px;display:flex}.hero-points li:before{content:"✓";color:var(--orange);font-weight:700}.hero-note{color:#8e9bb4;margin:0 0 16px;font-size:11px}.text-link{color:var(--blue);align-items:center;gap:10px;font-size:13px;font-weight:700;display:inline-flex}.text-link-light{color:var(--ice)}.crosshair{z-index:2;border:1px solid var(--orange);opacity:.8;width:18px;height:18px;position:absolute}.crosshair:after,.crosshair:before{content:"";background:var(--orange);position:absolute}.crosshair:before{width:1px;height:26px;top:-5px;left:8px}.crosshair:after{width:26px;height:1px;top:8px;left:-5px}.crosshair-one{top:14%;right:12%}.crosshair-two{bottom:12%;left:46%}.hero-form{background:var(--white);border:1px solid #ffffff80;justify-self:end;width:100%;max-width:520px;padding:clamp(18px,2.2vw,30px);box-shadow:0 30px 70px #050e2473}.form-heading{letter-spacing:1.4px;color:var(--muted);justify-content:space-between;align-items:center;margin-bottom:20px;font-size:11px;display:flex}.form-progress{gap:5px;display:flex}.form-progress b,.form-progress i{background:var(--line);width:30px;height:3px;display:block}.form-progress i{background:var(--blue)}.form-step h2,.form-success h2{font-family:var(--display);text-transform:uppercase;margin:0;font-size:clamp(30px,2.7vw,40px);line-height:.95}.form-step>p{color:var(--muted);margin:9px 0 16px;font-size:14px}.form-step label{color:var(--ink-soft);letter-spacing:.1px;margin:13px 0;font-size:12.5px;font-weight:700;display:block}input,select,textarea{border:0;border-bottom:1px solid var(--line);width:100%;color:var(--ink);background:0 0;border-radius:0;outline:0;padding:10px 0 9px;font-size:16px;display:block}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 2px 0 var(--blue)}select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--blue) 50%),linear-gradient(135deg,var(--blue) 50%,transparent 50%);background-position:calc(100% - 7px),100%;background-repeat:no-repeat;background-size:7px 7px,7px 7px}.form-step .button{width:100%;margin-top:18px}.button{min-height:48px;padding:16px 20px}.button-primary{background:var(--blue);color:#fff;transition:background .2s,transform .2s}.privacy-note{color:var(--muted);margin:16px 0 0;font-size:11.5px}.form-help{color:var(--ink-soft);border-top:1px solid var(--line);margin:12px 0 0;padding-top:12px;font-size:12.5px}.form-error{color:#b63d2a;margin:16px 0 0;font-size:13px;font-weight:600}.form-success{padding:6px 0 16px}.success-icon{background:var(--blue);color:#fff;place-items:center;width:42px;height:42px;margin-bottom:22px;font-weight:700;display:grid}.form-success p{color:var(--muted);margin:10px 0 0;font-size:14px}.field-error{color:#b63d2a;letter-spacing:0;margin-top:5px;font-size:12px;font-weight:600;line-height:1.35;display:block}.form-step label.is-invalid{color:#b63d2a}.form-step label.is-invalid>input,.form-step label.is-invalid>select,.form-step label.is-invalid>textarea{border-color:#b63d2a;box-shadow:0 2px #b63d2a59}.form-step label.is-invalid>input:focus,.form-step label.is-invalid>select:focus,.form-step label.is-invalid>textarea:focus{box-shadow:0 2px #b63d2a}.form-step label.is-invalid>input::placeholder{color:#b63d2a8c}.form-step label.is-invalid>textarea::placeholder{color:#b63d2a8c}.hp-field{opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;position:absolute!important;top:-9999px!important;left:-9999px!important}.signal-bar{background:var(--ink);color:#fff;text-transform:uppercase;letter-spacing:1.1px;white-space:nowrap;align-items:center;gap:clamp(18px,4vw,60px);min-height:58px;padding:14px clamp(22px,7vw,100px);font-size:11px;display:flex;overflow:hidden}.signal-kicker{color:var(--orange);font-weight:700}.sticky-cta{z-index:15;background:var(--blue);color:#fff;border-radius:var(--radius);justify-content:center;align-items:center;gap:10px;padding:16px 18px;font-size:14px;font-weight:700;display:none;position:fixed;bottom:12px;left:12px;right:12px;box-shadow:0 14px 34px #06102866}.sticky-cta[hidden]{display:none}.sticky-cta span{font-size:18px}@media (max-width: 1080px){.hero-inner{grid-template-columns:minmax(0,1fr) minmax(320px,.9fr)}.hero h1{font-size:clamp(34px,4.2vw,52px)}}@media (max-width: 800px){.site-header{height:66px}.main-nav,.header-cta{display:none}.menu-toggle{background:0 0;border:0;flex-direction:column;gap:5px;padding:10px;display:flex}.menu-toggle span{background:var(--ink);width:24px;height:2px}.mobile-nav{z-index:9;background:var(--white);border-bottom:1px solid var(--line);padding:10px 22px 20px;display:grid;position:absolute;top:66px;left:0;right:0}.mobile-nav a{border-bottom:1px solid var(--line);padding:13px 0;font-weight:600}.hero{min-height:0;display:block}.hero-inner{grid-template-columns:1fr;grid-template-areas:"copy""form""foot";gap:22px;padding:24px 18px 46px}.hero h1{max-width:none;font-size:clamp(34px,9.8vw,50px)}.hero-lead{margin-top:14px;font-size:15.5px}.hero .eyebrow{margin-bottom:12px}.hero-form{justify-self:stretch;max-width:none;padding:18px}.hero-foot{margin-top:4px}.crosshair{display:none}.sticky-cta.is-visible{display:flex}.signal-bar{gap:28px}}@media (max-height: 860px) and (min-width: 801px){.hero-inner{gap:16px;padding-top:16px;padding-bottom:20px}.hero .eyebrow{margin-bottom:10px}.hero h1{font-size:clamp(30px,4vw,46px)}.hero-lead{margin-top:12px;font-size:15px}.hero-points{display:none}.hero-form{padding:16px 18px}.form-heading{margin-bottom:12px}.form-step h2{font-size:clamp(25px,2.1vw,32px)}.form-step>p{margin:7px 0 11px;font-size:13px}.form-step label{margin:9px 0}input,select,textarea{padding:8px 0 7px}.field-error{font-size:11.5px}.form-step .button{min-height:44px;margin-top:12px}.form-help{display:none}}@media (max-height: 700px) and (min-width: 801px){.hero-inner{gap:12px;padding:16px 16px 22px}.hero .eyebrow{margin-bottom:8px}.hero h1{font-size:clamp(25px,7.6vw,36px)}.hero-lead{display:none}.hero-foot{margin-top:0}.hero-points{display:none}.hero-form{padding:14px 16px}.form-heading{margin-bottom:10px}.form-step h2{font-size:clamp(23px,6vw,30px)}.form-step>p{display:none}.form-step label{margin:9px 0;font-size:12px}input,select,textarea{padding:7px 0 6px}.form-step .button{min-height:44px;margin-top:12px}.privacy-note{margin-top:12px;font-size:11px}.form-help{display:none}}@media (max-height: 520px) and (min-width: 801px){.hero{min-height:0;display:block}.hero-inner{grid-template-columns:minmax(0,1fr) minmax(300px,.95fr);grid-template-areas:"copy form""foot form";align-content:start;gap:16px;padding:12px 16px 16px}.hero .eyebrow{margin-bottom:8px}.hero h1{font-size:clamp(21px,3.6vw,30px)}.hero-lead,.hero-points,.hero-note,.form-heading,.privacy-note,.form-help{display:none}.hero-foot{margin-top:6px}.hero-form{max-height:calc(100svh - 88px);padding:12px 16px;overflow-y:auto}.form-step h2{font-size:clamp(19px,2.6vw,24px)}.form-step>p{display:none}.form-step label{margin:5px 0;font-size:11.5px}input,select,textarea{padding:5px 0 4px}.form-step .button{min-height:42px;margin-top:10px}.field-error{font-size:11px}.form-success{padding:0 0 8px}.form-success h2{font-size:24px}.success-icon{width:32px;height:32px;margin-bottom:12px}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button-primary{transition:none}}</style>
+<!-- CRITICAL:END -->
+
+<!-- Feuille complète : récupérée sans bloquer le rendu, appliquée dès réception -->
+<link rel="preload" href="style.css?v=20261008-sms" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="style.css?v=20261008-sms"></noscript>
+
+<script defer src="cookie-consent.js?v=20261006-opt"></script>
+<script defer src="script.js?v=20261008-sms"></script>
+<script defer src="phone-verification.js?v=20261008-sms"></script>
+
+<!-- Données structurées : entité, page, service, FAQ (SEO + moteurs de réponse) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.ubepro.fr/#organization",
+      "name": "Ubepro",
+      "legalName": "Hellodevis SAS",
+      "url": "https://www.ubepro.fr/",
+      "email": "contact@ubepro.fr",
+      "telephone": "+33756986082",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.ubepro.fr/agv-amr/assets/apple-touch-icon.png",
+        "width": 180,
+        "height": 180
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "5 avenue de la République",
+        "postalCode": "75011",
+        "addressLocality": "Paris",
+        "addressCountry": "FR"
+      },
+      "identifier": "RCS Paris B 798 043 634",
+      "areaServed": { "@type": "Country", "name": "France" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "+33756986082",
+        "email": "contact@ubepro.fr",
+        "availableLanguage": ["fr"]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.ubepro.fr/agv-amr/#webpage",
+      "url": "https://www.ubepro.fr/agv-amr/",
+      "name": "AGV & AMR : automatisez vos flux intralogistiques | Ubepro",
+      "description": "Solutions AGV et AMR pour le transport de palettes, bacs et charges : diagnostic, étude, installation et mise en service.",
+      "inLanguage": "fr-FR",
+      "isPartOf": { "@id": "https://www.ubepro.fr/#website" },
+      "about": { "@id": "https://www.ubepro.fr/agv-amr/#service" },
+      "primaryImageOfPage": "https://www.ubepro.fr/agv-amr/assets/og-ubepro-agv-amr.jpg",
+      "datePublished": "2026-09-22",
+      "dateModified": "2026-10-01"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.ubepro.fr/#website",
+      "url": "https://www.ubepro.fr/",
+      "name": "Ubepro",
+      "publisher": { "@id": "https://www.ubepro.fr/#organization" },
+      "inLanguage": "fr-FR"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.ubepro.fr/agv-amr/#service",
+      "name": "Intégration de solutions AGV et AMR",
+      "serviceType": "Automatisation intralogistique — véhicules à guidage automatique (AGV) et robots mobiles autonomes (AMR)",
+      "description": "Ubepro conçoit et intègre des solutions AGV et AMR adaptées aux flux industriels : transport de palettes et de charges lourdes, alimentation de lignes de production, préparation de commandes, interconnexion WMS, ERP et MES.",
+      "provider": { "@id": "https://www.ubepro.fr/#organization" },
+      "areaServed": { "@type": "Country", "name": "France" },
+      "availableLanguage": "fr",
+      "audience": {
+        "@type": "BusinessAudience",
+        "name": "Sites industriels, entrepôts logistiques et plateformes e-commerce"
+      },
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "description": "Premier échange et diagnostic sans engagement"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.ubepro.fr/agv-amr/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quelle est la différence entre un AGV et un AMR ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un AGV (Automated Guided Vehicle) suit un itinéraire prédéfini, matérialisé par un fil, une bande ou des repères au sol : il est très robuste pour des trajets fixes et répétitifs. Un AMR (Autonomous Mobile Robot) cartographie son environnement et recalcule sa trajectoire en temps réel : il s'adapte aux changements de cadence, de référence ou d'organisation, avec une infrastructure minimale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment choisir entre un AGV et un AMR pour mon site ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le choix dépend de vos charges, de vos trajets et de la façon dont votre site fonctionne aujourd'hui : nature et poids des charges, longueur et variabilité des parcours, cadence, présence d'obstacles ou de personnes, systèmes de gestion existants. Ubepro commence par un diagnostic du site, puis explique quelle solution répond au besoin et pourquoi, sans jargon."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles charges un AGV ou un AMR peut-il transporter ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Selon la solution retenue, un AGV ou un AMR transporte des palettes, des bacs, des chariots et des charges lourdes entre zones de production, de stockage et d'expédition. La charge admissible, le mode de prise (levage, remorquage, plateau) et les dimensions sont validés pendant l'étude du site."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il modifier le sol ou l'infrastructure de mon site ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cela dépend de la technologie : certaines solutions d'AGV s'appuient sur un guidage laser ou filoguidé qui suppose des repères ou une infrastructure dédiée, tandis qu'un AMR fonctionne avec une infrastructure minimale grâce à sa navigation autonome. L'audit du site permet d'identifier les aménagements réellement nécessaires."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Un AGV ou un AMR peut-il être connecté à mon WMS, mon ERP ou mon MES ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Les solutions déployées par Ubepro sont supervisées et interfacées avec les systèmes existants : WMS, ERP, MES et systèmes de production, afin que les missions de transport suivent les ordres réels de votre site."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment se passe une étude de projet avec Ubepro ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En trois étapes : comprendre vos trajets, vos charges et les difficultés rencontrées par vos équipes ; proposer la solution adaptée en expliquant le pourquoi de chaque choix ; installer le système, former vos équipes et rester présent au démarrage. Le premier échange est sans engagement."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53SH7D7F"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="Ubepro, retour en haut de page">
+    <span class="brand-mark" aria-hidden="true">U</span><span>ubepro</span>
+  </a>
+  <nav class="main-nav" aria-label="Navigation principale">
+    <a href="#enjeu">Le diagnostic</a>
+    <a href="#solutions">AGV ou AMR</a>
+    <a href="#methode">Méthode</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <a class="header-cta" href="#etude">Parler à un expert <span aria-hidden="true">↗</span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Ouvrir le menu"><span></span><span></span></button>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile" hidden>
+  <a href="#etude">Demander une étude</a><a href="#enjeu">Le diagnostic</a><a href="#solutions">AGV ou AMR</a><a href="#methode">Méthode</a><a href="#faq">FAQ</a>
+</nav>
+
+<main id="contenu">
+  <!-- Héros : le formulaire est visible dès le chargement, aucun défilement nécessaire -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <img class="hero-bg"
+         src="assets/hero-1400.webp"
+         srcset="assets/hero-800.webp 800w, assets/hero-1400.webp 1400w"
+         sizes="100vw"
+         width="1400" height="933" fetchpriority="high" decoding="async"
+         alt="Robot mobile autonome (AMR) transportant un colis dans un environnement industriel">
+    <span class="crosshair crosshair-one" aria-hidden="true"></span>
+    <span class="crosshair crosshair-two" aria-hidden="true"></span>
+
+    <div class="hero-inner">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> Intralogistique · AGV / AMR</p>
+        <h1 id="hero-title">Vous voulez utiliser des robots pour réduire vos coûts de <em>main-d'œuvre ?</em></h1>
+        <p class="hero-lead">Nous vous aidons à automatiser les déplacements de vos palettes, bacs et charges avec la bonne solution AGV ou AMR.</p>
+      </div>
+
+      <!-- Formulaire en haut de page : accessible sans défilement (desktop) -->
+      <div class="hero-form" id="etude" data-form-card>
+        <div class="form-heading"><span class="form-index">ÉTUDE / 01</span><span class="form-progress"><i></i><b></b></span></div>
+        <form id="study-form" novalidate>
+          <input type="hidden" name="form_id" value="a17629575110428r">
+          <div class="hp-field" aria-hidden="true"><label>Ne pas remplir ce champ<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="form-step is-active" data-step="1">
+            <h2>Parlons de vous.</h2>
+            <p>Quelques informations pour préparer l'échange.</p>
+            <label>Nom<input name="nom" autocomplete="family-name" required placeholder="Votre nom"></label>
+            <label>Prénom<input name="prenom" autocomplete="given-name" placeholder="Votre prénom"></label>
+            <label>Email professionnel<input type="email" name="mail" autocomplete="email" required placeholder="vous@entreprise.fr"></label>
+            <label>Société<input name="societe" autocomplete="organization" required placeholder="Nom de votre société"></label>
+            <label>Civilité<select name="civilite"><option value="">Sélectionner</option><option>Monsieur</option><option>Madame</option><option>Autre</option></select></label>
+            <button class="button button-primary form-next" type="button">Continuer <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="form-step" data-step="2" hidden>
+            <h2>Quel est votre terrain ?</h2>
+            <p>La réponse nous aide à orienter le premier échange.</p>
+            <label for="telephone">Téléphone mobile français
+              <input id="telephone" type="tel" name="telephone" autocomplete="tel-national" inputmode="numeric" maxlength="14" required placeholder="06 12 34 56 78" aria-describedby="telephone-help">
+            </label>
+            <p class="field-help" id="telephone-help">10 chiffres, en commençant par 06 ou 07.</p>
+            <div class="sms-verification" id="phone-verification" aria-label="Vérification du numéro par SMS">
+              <button class="button button-primary sms-button" id="send-sms-code" type="button" disabled>Recevoir le code</button>
+              <p class="sms-note">Le code comporte 6 chiffres, expire au bout de 10 minutes et ne peut être utilisé qu’une seule fois. Une nouvelle demande remplace le code précédent.</p>
+              <div class="sms-code-panel" id="sms-code-panel" hidden>
+                <label for="sms-code">Code reçu par SMS
+                  <input id="sms-code" name="sms_code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="123456" aria-describedby="sms-code-note">
+                </label>
+                <button class="button button-primary sms-button" id="verify-sms-code" type="button" disabled>Vérifier</button>
+                <p class="sms-note" id="sms-code-note">Saisissez les 6 chiffres reçus. Le code est à usage unique.</p>
+              </div>
+              <p class="sms-feedback" id="sms-feedback" role="status" aria-live="polite" hidden></p>
+              <p class="sms-countdown" id="sms-countdown" aria-live="polite" hidden></p>
+            </div>
+            <label class="consent-control" for="phone-contact-consent">
+              <input id="phone-contact-consent" type="checkbox" name="consentement_telephone" value="oui" required>
+              <span><strong>J’accepte</strong> d’être recontacté par téléphone au sujet de cette demande.</span>
+            </label>
+            <p class="verification-gate-hint" id="verification-gate-hint" aria-live="polite">Vérifiez votre numéro par SMS et cochez « J’accepte » pour activer la demande.</p>
+            <label>Code postal<input name="code_postal" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" title="5 chiffres, ex. 75001" required placeholder="75001"></label>
+            <label>Ville<input name="ville" autocomplete="address-level2" placeholder="Paris"></label>
+            <label>Type de site<select name="site" required><option value="">Sélectionner</option><option>Site industriel / production</option><option>Entrepôt logistique</option><option>Plateforme e-commerce</option><option>Autre</option></select></label>
+            <label>Solution envisagée<select name="solution" required><option value="">Sélectionner</option><option>AGV industriel</option><option>Robot mobile autonome (AMR)</option><option>Je ne sais pas encore</option></select></label>
+            <label>Votre enjeu principal<textarea name="enjeu" rows="3" placeholder="Ex. relier production et expédition..."></textarea></label>
+            <div class="form-buttons">
+              <button class="button button-ghost form-back" type="button">← Retour</button>
+              <button class="button button-primary" type="submit" disabled>Demander mon étude <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+          <div class="form-success" hidden>
+            <span class="success-icon" aria-hidden="true">✓</span>
+            <h2>Demande reçue.</h2>
+            <p>Merci. Votre contexte est bien enregistré pour la suite de l'échange.</p>
+          </div>
+          <p class="form-error" role="alert" hidden>Vérifiez les champs obligatoires avant de continuer.</p>
+        </form>
+        <p class="privacy-note">Vos données sont utilisées uniquement pour répondre à votre demande.</p>
+        <p class="form-help"><strong>Besoin d'aide pour choisir ?</strong> Nous étudions votre site avec vous.</p>
+      </div>
+
+      <div class="hero-foot reveal reveal-delay">
+        <ul class="hero-points">
+          <li>Premier échange sans engagement</li>
+          <li>Des explications simples, sans jargon</li>
+          <li>Une recommandation adaptée à votre site</li>
+        </ul>
+        <p class="hero-note">Conseil · étude · installation · mise en service</p>
+        <a class="text-link text-link-light" href="#solutions">Voir les solutions <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <aside class="signal-bar" aria-label="Périmètre d'intervention Ubepro">
+    <span class="signal-kicker">De l'idée au flux opérationnel</span><span>Transport de palettes</span><span>Flux production</span><span>Préparation de commandes</span><span>WMS · ERP · MES</span>
+  </aside>
+
+  <section class="section problem-section" id="enjeu" aria-labelledby="enjeu-title">
+    <div class="section-intro reveal">
+      <p class="eyebrow">01 / Votre besoin</p>
+      <h2 id="enjeu-title">Vous perdez du temps avec des tâches qui pourraient être <span>automatisées ?</span></h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-statement reveal">
+        <p>Si vos équipes déplacent encore les charges à la main, nous pouvons chercher avec vous ce qu'un robot peut prendre en charge.</p>
+        <p class="line-number">U / VOTRE SITUATION / 001</p>
+      </div>
+      <div class="issue-list reveal reveal-delay">
+        <div class="issue"><span aria-hidden="true">01</span><p>Vos salariés passent trop de temps à transporter des charges</p></div>
+        <div class="issue"><span aria-hidden="true">02</span><p>Vos zones de production et de stockage communiquent mal</p></div>
+        <div class="issue"><span aria-hidden="true">03</span><p>Vous voulez réduire les accidents et les efforts physiques</p></div>
+        <div class="issue"><span aria-hidden="true">04</span><p>Vous avez besoin de produire plus sans recruter davantage</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark-section" id="solutions" aria-labelledby="solutions-title">
+    <div class="section-intro intro-light reveal">
+      <p class="eyebrow">02 / Quelle solution choisir ?</p>
+      <h2 id="solutions-title">AGV ou AMR ? <span>Nous vous aidons à choisir</span> le robot adapté.</h2>
+      <p class="section-deck">Le bon choix dépend de vos charges, de vos trajets et de la façon dont votre site fonctionne aujourd'hui.</p>
+    </div>
+
+    <div class="definitions reveal">
+      <div class="definition">
+        <h3>AGV — Automated Guided Vehicle</h3>
+        <p>Un AGV suit un itinéraire défini à l'avance grâce à un guidage laser, filoguidé ou à des repères au sol. Robuste et continu, il est idéal pour les trajets fixes et les flux répétitifs de palettes et de charges lourdes.</p>
+        <dl>
+          <dt>Pour qui</dt><dd>Flux réguliers, longs trajets, cadence stable</dd>
+          <dt>Points clés</dt><dd>Navigation guidée, fonctionnement continu, supervision centralisée</dd>
+        </dl>
+      </div>
+      <div class="definition">
+        <h3>AMR — Autonomous Mobile Robot</h3>
+        <p>Un AMR cartographie son environnement et recalcule sa trajectoire en temps réel. Souple, il accompagne les environnements qui changent, avec une infrastructure minimale et un déploiement progressif.</p>
+        <dl>
+          <dt>Pour qui</dt><dd>Environnements variables, flux mixtes, déploiement par étapes</dd>
+          <dt>Points clés</dt><dd>Navigation autonome, obstacles et personnes, évolutivité</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="solution-tabs reveal reveal-delay" data-tabs>
+      <div class="tab-list" role="tablist" aria-label="Technologies disponibles">
+        <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-agv" id="tab-agv" data-tab="agv">AGV industriel <span aria-hidden="true">01</span></button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-amr" id="tab-amr" data-tab="amr" tabindex="-1">Robot mobile autonome <span aria-hidden="true">02</span></button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-hybrid" id="tab-hybrid" data-tab="hybrid" tabindex="-1">Sur mesure <span aria-hidden="true">03</span></button>
+      </div>
+      <div class="tab-panels">
+        <article class="tab-panel is-active" id="panel-agv" role="tabpanel" aria-labelledby="tab-agv" data-panel="agv">
+          <div class="panel-image">
+            <img src="assets/agv-1000.webp" srcset="assets/agv-600.webp 600w, assets/agv-1000.webp 1000w" sizes="(max-width: 800px) 100vw, 50vw" width="1000" height="571" loading="lazy" decoding="async" alt="AGV industriel de transport de palettes en site de production">
+          </div>
+          <div class="panel-copy">
+            <p class="panel-kicker">Pour les flux répétitifs</p>
+            <h3>AGV industriel — robustesse &amp; continuité</h3>
+            <p>Transport de palettes et charges lourdes sur des trajets connus, avec supervision centralisée et intégration aux systèmes existants.</p>
+            <ul>
+              <li>Navigation laser ou filoguidée</li>
+              <li>Fonctionnement continu</li>
+              <li>Interface WMS, ERP et production</li>
+            </ul>
+            <a href="#etude" class="arrow-link">Évaluer mon flux <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="tab-panel" id="panel-amr" role="tabpanel" aria-labelledby="tab-amr" data-panel="amr" hidden>
+          <div class="panel-image">
+            <img src="assets/hero-1400.webp" srcset="assets/hero-800.webp 800w, assets/hero-1400.webp 1400w" sizes="(max-width: 800px) 100vw, 50vw" width="1400" height="933" loading="lazy" decoding="async" alt="Robot mobile autonome circulant dans un entrepôt logistique">
+          </div>
+          <div class="panel-copy">
+            <p class="panel-kicker">Pour les environnements variables</p>
+            <h3>AMR — flexibilité &amp; adaptabilité</h3>
+            <p>Des trajectoires recalculées en temps réel pour accompagner les changements de cadence, de référence ou d'organisation.</p>
+            <ul>
+              <li>Navigation autonome et collaborative</li>
+              <li>Infrastructure minimale</li>
+              <li>Déploiement progressif</li>
+            </ul>
+            <a href="#etude" class="arrow-link">Évaluer mon flux <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="tab-panel" id="panel-hybrid" role="tabpanel" aria-labelledby="tab-hybrid" data-panel="hybrid" hidden>
+          <div class="panel-image">
+            <img src="assets/hybride-1000.webp" srcset="assets/hybride-600.webp 600w, assets/hybride-1000.webp 1000w" sizes="(max-width: 800px) 100vw, 50vw" width="1000" height="667" loading="lazy" decoding="async" alt="Solution robotisée sur mesure pour flux intralogistique">
+          </div>
+          <div class="panel-copy">
+            <p class="panel-kicker">Pour les contraintes singulières</p>
+            <h3>Hybride — une architecture à votre mesure</h3>
+            <p>Tracteur autonome, plateforme robotisée ou combinaison de technologies : l'architecture évolue avec votre site.</p>
+            <ul>
+              <li>Adaptation espace, charge, cadence</li>
+              <li>Évolutivité progressive</li>
+              <li>ROI et montée en charge maîtrisés</li>
+            </ul>
+            <a href="#etude" class="arrow-link">Évaluer mon flux <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section outcomes-section" id="benefices" aria-labelledby="benefices-title">
+    <div class="outcomes-copy reveal">
+      <p class="eyebrow">03 / Ce que vous pouvez gagner</p>
+      <h2 id="benefices-title">Moins de transport manuel. <span>Plus de temps pour vos équipes.</span></h2>
+      <p>Un robot peut prendre en charge les trajets répétitifs, améliorer la sécurité et aider votre site à absorber les périodes chargées.</p>
+      <a class="text-link" href="#methode">Voir comment nous travaillons <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="outcome-stack reveal reveal-delay">
+      <div class="outcome"><strong>24/7</strong><span>Une continuité opérationnelle sans interruption</span></div>
+      <div class="outcome"><strong>+35%</strong><span>Objectif de productivité des flux internes*</span></div>
+      <div class="outcome"><strong>-30%</strong><span>Incidents liés à la manutention manuelle*</span></div>
+      <p class="fine-print">*Ordres de grandeur communiqués dans le brief client, à confirmer par l'étude de votre site.</p>
+    </div>
+  </section>
+
+  <section class="section method-section" id="methode" aria-labelledby="methode-title">
+    <div class="section-intro reveal">
+      <p class="eyebrow">04 / Comment ça marche ?</p>
+      <h2 id="methode-title">Nous avançons avec vous, <span>étape par étape.</span></h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-step reveal"><span aria-hidden="true">01</span><h3>Comprendre</h3><p>Nous regardons vos trajets, vos charges et les difficultés rencontrées par vos équipes.</p></div>
+      <div class="method-step reveal reveal-delay"><span aria-hidden="true">02</span><h3>Proposer</h3><p>Nous vous expliquons quelle solution peut répondre à votre besoin et pourquoi.</p></div>
+      <div class="method-step reveal reveal-delay-2"><span aria-hidden="true">03</span><h3>Installer</h3><p>Nous installons le système, formons vos équipes et restons présents au démarrage.</p></div>
+    </div>
+  </section>
+
+  <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+    <div class="section-intro reveal">
+      <p class="eyebrow">05 / Questions fréquentes</p>
+      <h2 id="faq-title">AGV, AMR : les <span>réponses claires</span> avant de décider.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>Quelle est la différence entre un AGV et un AMR ?</summary>
+        <div class="faq-answer">
+          <p>Un <strong>AGV</strong> (Automated Guided Vehicle) suit un itinéraire prédéfini, matérialisé par un fil, une bande ou des repères au sol : il est très robuste pour des trajets fixes et répétitifs.</p>
+          <p>Un <strong>AMR</strong> (Autonomous Mobile Robot) cartographie son environnement et recalcule sa trajectoire en temps réel : il s'adapte aux changements de cadence, de référence ou d'organisation, avec une infrastructure minimale.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Comment choisir entre un AGV et un AMR pour mon site ?</summary>
+        <div class="faq-answer">
+          <p>Le choix dépend de vos charges, de vos trajets et de la façon dont votre site fonctionne aujourd'hui : nature et poids des charges, longueur et variabilité des parcours, cadence, présence d'obstacles ou de personnes, systèmes de gestion existants.</p>
+          <p>Nous commençons par un diagnostic du site, puis nous expliquons quelle solution répond au besoin et pourquoi, sans jargon.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Quelles charges un AGV ou un AMR peut-il transporter ?</summary>
+        <div class="faq-answer">
+          <p>Selon la solution retenue : palettes, bacs, chariots et charges lourdes entre zones de production, de stockage et d'expédition. La charge admissible, le mode de prise (levage, remorquage, plateau) et les dimensions sont validés pendant l'étude de votre site.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Faut-il modifier le sol ou l'infrastructure de mon site ?</summary>
+        <div class="faq-answer">
+          <p>Cela dépend de la technologie. Certaines solutions d'AGV s'appuient sur un guidage laser ou filoguidé qui suppose des repères ou une infrastructure dédiée ; un AMR fonctionne avec une infrastructure minimale grâce à sa navigation autonome. L'audit du site permet d'identifier les aménagements réellement nécessaires.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Un AGV ou un AMR peut-il être connecté à mon WMS, mon ERP ou mon MES ?</summary>
+        <div class="faq-answer">
+          <p>Oui. Les solutions que nous déployons sont supervisées et interfacées avec les systèmes existants : WMS, ERP, MES et systèmes de production, afin que les missions de transport suivent les ordres réels de votre site.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Comment se passe une étude de projet avec Ubepro ?</summary>
+        <div class="faq-answer">
+          <p>En trois étapes : <strong>comprendre</strong> vos trajets, vos charges et les difficultés rencontrées par vos équipes ; <strong>proposer</strong> la solution adaptée en expliquant le pourquoi de chaque choix ; <strong>installer</strong> le système, former vos équipes et rester présent au démarrage.</p>
+          <p>Le premier échange est sans engagement.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Rappel : le formulaire est en haut de page (#etude) -->
+  <section class="section cta-band" id="contact" aria-labelledby="contact-title">
+    <div class="cta-copy reveal">
+      <p class="eyebrow">06 / Demander une étude</p>
+      <h2 id="contact-title">Parlons de vos <span>difficultés de manutention.</span></h2>
+      <p>Vous ne savez pas quel robot choisir ou par où commencer ? Décrivez-nous votre situation : nous vous aiderons à voir si l'AGV ou l'AMR peut vous être utile.</p>
+    </div>
+    <div class="cta-panel reveal reveal-delay">
+      <a class="button button-primary" href="#etude">Remplir le formulaire <span aria-hidden="true">↑</span></a>
+      <p class="cta-recap">Étude en 2 minutes · premier échange sans engagement</p>
+      <ul class="cta-list">
+        <li>Votre besoin et votre type de site</li>
+        <li>La solution envisagée — ou « je ne sais pas encore »</li>
+        <li>Votre enjeu principal</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="brand" href="#top" aria-label="Ubepro, retour en haut de page"><span class="brand-mark" aria-hidden="true">U</span><span>ubepro</span></a>
+    <p>Des flux qui avancent.</p>
+    <div>
+      <a href="https://www.ubepro.fr/mentions-legales" target="_blank" rel="noopener noreferrer">Mentions légales</a>
+      <a href="https://www.ubepro.fr/politique-de-confidentialite-donnees-personnelles" target="_blank" rel="noopener noreferrer">Confidentialité</a>
+      <button class="footer-cookie-link" id="open-cookie-preferences-btn" type="button">Gérer les cookies</button>
+      <span>Ubepro 2026</span>
+    </div>
+  </div>
+  <p class="footer-legal">
+    Ubepro est une marque de Hellodevis SAS — 5 avenue de la République, 75011 Paris — <a href="tel:+33756986082">07 56 98 60 82</a> — <a href="mailto:contact@ubepro.fr">contact@ubepro.fr</a> — RCS Paris B 798 043 634.<br>
+    Intégration de solutions AGV et AMR pour l'automatisation des flux intralogistiques en France. Page mise à jour le 1<sup>er</sup> octobre 2026.
+  </p>
+</footer>
+
+<!-- Bandeau de consentement : les cookies essentiels restent actifs, les catégories optionnelles sont au choix. -->
+<div class="cookie-banner" id="content-cookie" hidden>
+  <section class="cookie-banner__inner" role="region" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description">
+    <div class="cookie-banner__copy">
+      <p class="cookie-eyebrow">Vos préférences</p>
+      <h2 id="cookie-banner-title">Vos cookies, votre choix.</h2>
+      <p id="cookie-banner-description">Les cookies essentiels mémorisent vos choix. Les catégories mesure d’audience et marketing sont facultatives. Vous pouvez accepter, refuser ou personnaliser votre choix, puis le modifier à tout moment.</p>
+      <a href="https://www.ubepro.fr/politique-de-confidentialite-donnees-personnelles" target="_blank" rel="noopener noreferrer">Lire notre politique de confidentialité ↗</a>
+    </div>
+    <div class="cookie-banner__actions" aria-label="Choisir les cookies">
+      <button class="cookie-button cookie-button--primary" id="accept-all-banner-btn" type="button">Tout accepter</button>
+      <button class="cookie-button cookie-button--secondary" id="manage-preferences-banner-btn" type="button">Personnaliser</button>
+      <button class="cookie-button cookie-button--secondary" id="continue-without-accepting-btn" type="button">Tout refuser</button>
+    </div>
+  </section>
+</div>
+
+<!-- Modale de préférences : ouverte depuis le bandeau ou le lien du pied de page. -->
+<div class="cookie-modal" id="content-cookie-modal" hidden>
+  <section class="cookie-modal__panel" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title" aria-describedby="cookie-modal-description" tabindex="-1">
+    <header class="cookie-modal__header">
+      <div>
+        <p class="cookie-eyebrow">Réglages de confidentialité</p>
+        <h2 id="cookie-modal-title">Choisissez vos préférences</h2>
+      </div>
+      <button class="cookie-modal__close" id="modal-close-btn" type="button" aria-label="Fermer les préférences">×</button>
+    </header>
+    <p class="cookie-modal__intro" id="cookie-modal-description">Les cookies essentiels sont nécessaires pour mémoriser vos choix. Les autres catégories ne sont activées qu’en fonction de vos préférences.</p>
+
+    <div class="cookie-category">
+      <div class="cookie-category__text">
+        <h3>Cookies essentiels</h3>
+        <p>Mémorisation du choix de consentement et fonctionnement de base du site.</p>
+      </div>
+      <label class="cookie-category__control" for="essentials-toggle">
+        <input id="essentials-toggle" type="checkbox" checked disabled>
+        <span>Toujours actifs</span>
+      </label>
+    </div>
+    <div class="cookie-category">
+      <div class="cookie-category__text">
+        <h3>Mesure d’audience</h3>
+        <p>Mesure de la fréquentation et compréhension de l’utilisation du site.</p>
+      </div>
+      <label class="cookie-category__control" for="analytics-toggle">
+        <input id="analytics-toggle" type="checkbox">
+        <span>Autoriser</span>
+      </label>
+    </div>
+    <div class="cookie-category">
+      <div class="cookie-category__text">
+        <h3>Marketing</h3>
+        <p>Mesure des campagnes et fonctionnalités publicitaires éventuelles.</p>
+      </div>
+      <label class="cookie-category__control" for="marketing-toggle">
+        <input id="marketing-toggle" type="checkbox">
+        <span>Autoriser</span>
+      </label>
+    </div>
+
+    <div class="cookie-modal__actions">
+      <button class="cookie-button cookie-button--primary" id="save-preferences-modal-btn" type="button">Enregistrer mes choix</button>
+      <button class="cookie-button cookie-button--secondary" id="accept-all-modal-btn" type="button">Tout accepter</button>
+      <button class="cookie-button cookie-button--secondary" id="refuse-all-modal-btn" type="button">Tout refuser</button>
+    </div>
+    <p class="cookie-modal__note">Votre choix est conservé pendant six mois. Vous pouvez le modifier depuis le pied de page.</p>
+  </section>
+</div>
+
+<!-- Barre d'action mobile : ramène au formulaire sans défilement manuel -->
+<a class="sticky-cta" href="#etude" id="sticky-cta" hidden>Demander une étude <span aria-hidden="true">↑</span></a>
+</body>
+</html>
