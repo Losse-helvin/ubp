@@ -1,6 +1,6 @@
 # GTM — mapping par groupe, conteneur et `form_id`
 
-> Audit **et correction** du 2026-11-13 — branche `arena/61f8be71-ubp`.
+> Audit **et correction** du 2026-11-13 — branche `arena/61f8be71-ubp`, puis contrôle de conformité à la consigne d'installation Google (snippet `GTM-53SH7D7F` + push `formulaire_lead`) — branche `arena/f9bbd9c4-ubp`.
 > Périmètre : 174 pages HTML du repo (`*/index.html`), réparties dans les 3 groupes de la liste de référence.
 > Les `form_id` de la colonne « observé à l'exécution » sont **relevés en exécutant réellement le JS de chaque page** (JSDOM, lecture du `dataLayer`), pas déduits du source.
 
@@ -8,11 +8,12 @@
 
 | # | Correction | Pages |
 |---|---|---|
-| 1 | Convention GTM Google standardisée : commentaires `<!-- Google Tag Manager -->` / `<!-- End Google Tag Manager -->`, snippet en fin de `<head>`, `<noscript>` juste après `<body>` (hors `<div class="w-embed w-iframe">`) | 114 |
+| 1 | Convention GTM Google standardisée : commentaires `<!-- Google Tag Manager -->` / `<!-- End Google Tag Manager -->`, snippet en `<head>`, `<noscript>` juste après `<body>` (hors `<div class="w-embed w-iframe">`) | 114 |
 | 2 | Suppression des `<noscript>` GTM en double (risque de double comptage) : `courtier-energies-industries`, `energie`, `securite`, `securite-rcs`, `securite-telesurveillance`, `fuso/panneaux-photovoltaiques`, `remerciements-assurances-collectives` | 7 |
 | 3 | Retrait du conteneur `GTM-53SH7D7F` des pages devant être « sans GTM » (groupe 3) | 26 |
 | 4 | **Groupe 3 : suppression de tout le balisage Google restant** — `gtag.js G-3XPBT7BZ10`, bloc `Consent Mode V2` (`gtag('consent','default',…)`), `gtag('config',…)`, pushes `dataLayer` (`cookie_preferences_updated`, `formulaire_lead` legacy) et `gtag('consent','update')`. **Meta Pixel conservé.** | 81 pages HTML + 137 fichiers JS |
-| 5 | **`bar-business-canalplus`** : le champ « Raison sociale » s'appelait `name="nom"`, en doublon avec le champ « Nom » → la société partait **vide** dans le lead et dans le CRM. Renommé `name="societe"` (id `societe`). Vérifié : `societe` désormais transmis. | 1 |
+| 5 | **Snippet `GTM-53SH7D7F` remonté en tête de `<head>`** (il était le dernier script, après GA4 et Meta Pixel) pour respecter la consigne « collez ce code le plus haut possible dans le `<head>` ». Il ne reste au-dessus que le `meta charset`, le script Webflow anti-FOUC et le Consent Mode V2 (qui doit précéder tout tag Google). | 27 |
+| 6 | **`bar-business-canalplus`** : le champ « Raison sociale » s'appelait `name="nom"`, en doublon avec le champ « Nom » → la société partait **vide** dans le lead et dans le CRM. Renommé `name="societe"` (id `societe`). Vérifié : `societe` désormais transmis. | 1 |
 
 Contrôles automatisés après correction :
 
@@ -97,7 +98,14 @@ Conteneur GTM présent et unique ; GA4 direct `G-3XPBT7BZ10` conservé (hors pé
 
 ## Groupe 2. `GTM-53SH7D7F` — 27 pages
 
-Conteneur GTM présent et unique.
+Conteneur GTM présent et unique, **conforme à la consigne d'installation Google fournie** :
+
+- snippet `GTM-53SH7D7F` **copié à l'identique** (aucune modification du code entre `<script>` et `</script>`), encadré par `<!-- Google Tag Manager -->` / `<!-- End Google Tag Manager -->` ;
+- placé **le plus haut possible dans le `<head>`** : déplacé avant le tag GA4 (`gtag.js`), il n'est plus précédé que par le `<meta charset>` et le script Webflow `w-mod-js` (indispensable aux styles) — et par le bloc **Consent Mode V2**, qui doit légalement le précéder ;
+- `<noscript>` `ns.html?id=GTM-53SH7D7F` collé **immédiatement après `<body>`**, dans ses commentaires d'encadrement ;
+- `dataLayer.push({ event: "formulaire_lead" })` déclenché **à la validation du formulaire** sur les 27 pages (vérifié à l'exécution) — avec en plus `form_id`, `lead_source` et `categorie`, exigés par le conteneur.
+
+Vérifications automatisées : 27/27 pages chargent bien `gtm.js?id=GTM-53SH7D7F` une seule fois (contrôle à l'exécution, pas seulement dans le source), et poussent `formulaire_lead` avec un `form_id`.
 
 | # | Page | `form_id` transmis | Origine | Identifiant du `<form>` (DOM) |
 |---|---|---|---|---|
